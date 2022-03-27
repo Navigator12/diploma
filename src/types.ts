@@ -1,5 +1,5 @@
-import { EnvSchemaData } from 'env-schema';
+import type { IEnvironment } from '../config/types';
 
 export interface InitOptions {
-  config: EnvSchemaData;
+  environment: IEnvironment;
 }

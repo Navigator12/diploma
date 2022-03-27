@@ -1,4 +1,7 @@
+import { envSchema } from 'env-schema';
 import type { EnvSchemaOpt } from 'env-schema';
+
+import { IEnvironment } from './types';
 
 const schema = {
   type: 'object',
@@ -12,7 +15,7 @@ const schema = {
       type: 'string',
     },
     DB_PORT: {
-      type: 'string',
+      type: 'number',
     },
     DB_USER: {
       type: 'string',
@@ -29,9 +32,11 @@ const schema = {
   },
 };
 
-const environment: EnvSchemaOpt = {
+const options: EnvSchemaOpt = {
   schema,
   dotenv: true,
 };
+
+const environment: IEnvironment = envSchema<IEnvironment>(options);
 
 export default environment;
