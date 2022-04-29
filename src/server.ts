@@ -1,10 +1,14 @@
 import fastify from 'fastify';
 import { fastifyAwilixPlugin, diContainer } from 'fastify-awilix';
 import { asFunction, asClass } from 'awilix';
+import multer from 'fastify-multer';
 
 import { InitOptions } from './types';
+
 import connectDatabase from './database';
+import BucketService from './services/bucket';
 import MonumentService from './services/monuments';
+
 import setApiRoutes from './api';
 
 export const init = async ({ environment }: InitOptions) => {
@@ -14,6 +18,8 @@ export const init = async ({ environment }: InitOptions) => {
 
   app.decorate('environment', environment);
 
+  app.register(multer.contentParser);
+
   app.register(fastifyAwilixPlugin, {
     disposeOnClose: true,
     disposeOnResponse: true,
@@ -21,6 +27,10 @@ export const init = async ({ environment }: InitOptions) => {
 
   diContainer.register({
     knex: asFunction(connectDatabase).singleton(),
+  });
+
+  diContainer.register({
+    bucket: asClass(BucketService).singleton(),
   });
 
   diContainer.register({

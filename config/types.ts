@@ -5,5 +5,6 @@ export interface IEnvironment {
   DB_USER: string;
   DB_PASSWORD: string;
   DB_DATABASE: string;
+  CLOUD_STORAGE_BUCKET_NAME?: string;
   GOOGLE_APPLICATION_CREDENTIALS?: string;
 }

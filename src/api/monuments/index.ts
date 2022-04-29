@@ -1,20 +1,28 @@
 import { FastifyInstance } from 'fastify';
+import multer from 'fastify-multer';
 
-import * as handlers from './handlers';
-import * as schemas from './schemas';
+import { getMonumentsHandler, createMonumentHandler, uploadMonumentPhotoHandler } from './handlers';
+import { createMonumentSchema } from './schemas';
 
 const monuments = async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',
     url: '/',
-    handler: handlers.getMonumentsHandler,
+    handler: getMonumentsHandler,
   });
 
   fastify.route({
     method: 'POST',
     url: '/',
-    schema: schemas.createMonumentSchema,
-    handler: handlers.createMonumentHandler,
+    schema: createMonumentSchema,
+    handler: createMonumentHandler,
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/photo',
+    preHandler: multer().single('file'),
+    handler: uploadMonumentPhotoHandler,
   });
 };
 

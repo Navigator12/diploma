@@ -26,6 +26,9 @@ const schema = {
     DB_DATABASE: {
       type: 'string',
     },
+    CLOUD_STORAGE_BUCKET_NAME: {
+      type: 'string',
+    },
     GOOGLE_APPLICATION_CREDENTIALS: {
       type: 'string',
     },
