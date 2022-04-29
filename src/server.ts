@@ -6,8 +6,7 @@ import multer from 'fastify-multer';
 import { InitOptions } from './types';
 
 import connectDatabase from './database';
-import BucketService from './services/bucket';
-import MonumentService from './services/monuments';
+import { BucketService, MonumentService, PhotoService } from './services';
 
 import setApiRoutes from './api';
 
@@ -30,11 +29,15 @@ export const init = async ({ environment }: InitOptions) => {
   });
 
   diContainer.register({
-    bucket: asClass(BucketService).singleton(),
+    bucketService: asClass(BucketService).singleton(),
   });
 
   diContainer.register({
     monumentService: asClass(MonumentService).singleton(),
+  });
+
+  diContainer.register({
+    photoService: asClass(PhotoService).singleton(),
   });
 
   app.register(setApiRoutes);

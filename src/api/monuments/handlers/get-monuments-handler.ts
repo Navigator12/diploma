@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 
-import MonumentService from '../../../services/monuments';
+import { MonumentService } from '../../../services';
 
 const getMonumentsHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const monumentService = request.diScope.resolve<MonumentService>('monumentService');

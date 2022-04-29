@@ -20,6 +20,10 @@ const request = {
         min: -180,
         max: 180,
       },
+      photo_id: {
+        type: 'string',
+        format: 'uuid',
+      },
     },
   },
 };
