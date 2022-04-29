@@ -1,6 +1,11 @@
 import fastify from 'fastify';
+import { fastifyAwilixPlugin, diContainer } from 'fastify-awilix';
+import { asFunction, asClass } from 'awilix';
 
 import { InitOptions } from './types';
+import connectDatabase from './database';
+import MonumentService from './services/monuments';
+import setApiRoutes from './api';
 
 export const init = async ({ environment }: InitOptions) => {
   const app = fastify({
@@ -8,6 +13,21 @@ export const init = async ({ environment }: InitOptions) => {
   });
 
   app.decorate('environment', environment);
+
+  app.register(fastifyAwilixPlugin, {
+    disposeOnClose: true,
+    disposeOnResponse: true,
+  });
+
+  diContainer.register({
+    knex: asFunction(connectDatabase).singleton(),
+  });
+
+  diContainer.register({
+    monumentService: asClass(MonumentService).singleton(),
+  });
+
+  app.register(setApiRoutes);
 
   await app.ready();
   return app;

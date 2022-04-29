@@ -2,13 +2,12 @@ import { init, run } from './server';
 import environment from '../config/environment';
 
 const bootstrap = async () => {
-  try {
-    const server = await init({ environment });
+  const server = await init({ environment });
 
-    await run(server);
-  } catch (e) {
-    // TODO: log
-  }
+  await run(server);
 };
 
-bootstrap();
+bootstrap().catch((e) => {
+  console.log(e.message);
+  process.exit(1);
+});

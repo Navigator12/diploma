@@ -25,13 +25,16 @@
   },
   "homepage": "https://github.com/Navigator12/diploma#readme",
   "dependencies": {
+    "awilix": "^7.0.1",
     "dotenv": "^16.0.0",
     "env-schema": "^4.0.0",
     "fastify": "^3.27.4",
+    "fastify-awilix": "^1.2.1",
     "knex": "^1.0.4",
     "pg": "^8.7.3"
   },
   "devDependencies": {
+    "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "eslint": "^8.12.0",
