@@ -1,15 +1,11 @@
-import { diContainer } from 'fastify-awilix';
 import { Knex } from 'knex';
 
 import { CreatePhotoPayload } from '../dto/photos';
+import { InjectService } from '../utils/di';
 import { getOne } from '../utils/knex';
 
 export default class PhotoService {
-  private readonly knex: Knex;
-
-  public constructor() {
-    this.knex = diContainer.resolve<Knex>('knex');
-  }
+  @InjectService('knex') private readonly knex: Knex;
 
   public async createPhoto(payload: CreatePhotoPayload) {
     return this.knex('photos')

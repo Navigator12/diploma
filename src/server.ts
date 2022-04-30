@@ -26,17 +26,8 @@ export const init = async ({ environment }: InitOptions) => {
 
   diContainer.register({
     knex: asFunction(connectDatabase).singleton(),
-  });
-
-  diContainer.register({
     bucketService: asClass(BucketService).singleton(),
-  });
-
-  diContainer.register({
     monumentService: asClass(MonumentService).singleton(),
-  });
-
-  diContainer.register({
     photoService: asClass(PhotoService).singleton(),
   });
 

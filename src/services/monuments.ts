@@ -1,15 +1,11 @@
-import { diContainer } from 'fastify-awilix';
 import { Knex } from 'knex';
 
 import { CreateMonumentPayload } from '../dto/monuments';
+import { InjectService } from '../utils/di';
 import { getOne } from '../utils/knex';
 
 export default class MonumentService {
-  private readonly knex: Knex;
-
-  public constructor() {
-    this.knex = diContainer.resolve<Knex>('knex');
-  }
+  @InjectService('knex') private readonly knex: Knex;
 
   public async createMonument(payload: CreateMonumentPayload) {
     const trx = await this.knex.transaction();
