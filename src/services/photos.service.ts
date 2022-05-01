@@ -4,7 +4,7 @@ import { CreatePhotoPayload } from '../dto/photos';
 import { InjectService } from '../utils/di';
 import { getOne } from '../utils/knex';
 
-export default class PhotoService {
+export default class PhotosService {
   @InjectService('knex') private readonly knex: Knex;
 
   public async createPhoto(payload: CreatePhotoPayload) {

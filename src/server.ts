@@ -1,12 +1,11 @@
-import fastify from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import { fastifyAwilixPlugin, diContainer } from 'fastify-awilix';
-import { asFunction, asClass } from 'awilix';
+import { asFunction, Lifetime } from 'awilix';
 import multer from 'fastify-multer';
 
 import { InitOptions } from './types';
 
 import connectDatabase from './database';
-import { BucketService, MonumentService, PhotoService } from './services';
 
 import setApiRoutes from './api';
 
@@ -26,9 +25,15 @@ export const init = async ({ environment }: InitOptions) => {
 
   diContainer.register({
     knex: asFunction(connectDatabase).singleton(),
-    bucketService: asClass(BucketService).singleton(),
-    monumentService: asClass(MonumentService).singleton(),
-    photoService: asClass(PhotoService).singleton(),
+  });
+
+  diContainer.loadModules(['src/services/*.service.ts'], {
+    resolverOptions: {
+      lifetime: Lifetime.SINGLETON,
+    },
+    formatName: (name) => {
+      return `${name.split('.')[0]}Service`;
+    },
   });
 
   app.register(setApiRoutes);
@@ -37,4 +42,4 @@ export const init = async ({ environment }: InitOptions) => {
   return app;
 };
 
-export const run = (app) => app.listen(app.environment.PORT);
+export const run = (app: FastifyInstance) => app.listen(app.environment.PORT);

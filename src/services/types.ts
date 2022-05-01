@@ -20,4 +20,5 @@ export interface RequestFile {
 
 export const enum DirectoryEnum {
   monumentPhotos = 'profile-photos',
+  personPhotos = 'profile-photos',
 }
