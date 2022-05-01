@@ -21,7 +21,7 @@ export default class MonumentsService {
         'monuments.created_at as created_at',
         'file_name'
       )
-      .join('photos', { 'monuments.photo_id': 'photos.photo_id' })
+      .leftJoin('photos', { 'monuments.photo_id': 'photos.photo_id' })
       .where({ 'monuments.monument_id': monument_id })
       .transacting(trx)
       .then(getOne);
@@ -42,6 +42,6 @@ export default class MonumentsService {
         'monuments.created_at as created_at',
         'file_name'
       )
-      .join('photos', { 'monuments.photo_id': 'photos.photo_id' });
+      .leftJoin('photos', { 'monuments.photo_id': 'photos.photo_id' });
   }
 }

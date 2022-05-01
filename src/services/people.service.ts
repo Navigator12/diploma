@@ -13,7 +13,7 @@ export default class PersonService {
 
     const person = await this.knex('people')
       .select('people.person_id as person_id', 'name', 'description', 'people.created_at as created_at', 'file_name')
-      .join('photos', { 'people.photo_id': 'photos.photo_id' })
+      .leftJoin('photos', { 'people.photo_id': 'photos.photo_id' })
       .where({ 'people.person_id': person_id })
       .transacting(trx)
       .then(getOne);
@@ -26,6 +26,6 @@ export default class PersonService {
   public async getPeople() {
     return this.knex('people')
       .select('people.person_id as person_id', 'name', 'description', 'people.created_at as created_at', 'file_name')
-      .join('photos', { 'people.photo_id': 'photos.photo_id' });
+      .leftJoin('photos', { 'people.photo_id': 'photos.photo_id' });
   }
 }
