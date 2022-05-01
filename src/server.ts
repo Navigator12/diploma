@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance } from 'fastify';
 import { fastifyAwilixPlugin, diContainer } from 'fastify-awilix';
-import { asFunction, Lifetime } from 'awilix';
+import { asFunction, InjectionMode, Lifetime } from 'awilix';
 import multer from 'fastify-multer';
 
 import { InitOptions } from './types';
@@ -30,10 +30,9 @@ export const init = async ({ environment }: InitOptions) => {
   diContainer.loadModules(['src/services/*.service.ts'], {
     resolverOptions: {
       lifetime: Lifetime.SINGLETON,
+      injectionMode: InjectionMode.CLASSIC,
     },
-    formatName: (name) => {
-      return `${name.split('.')[0]}Service`;
-    },
+    formatName: 'camelCase',
   });
 
   app.register(setApiRoutes);

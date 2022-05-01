@@ -18,7 +18,7 @@ export interface RequestFile {
   buffer: Buffer;
 }
 
-export const enum DirectoryEnum {
-  monumentPhotos = 'profile-photos',
-  personPhotos = 'profile-photos',
+export enum DirectoryEnum {
+  monuments = 'profile-photos',
+  people = 'profile-photos',
 }

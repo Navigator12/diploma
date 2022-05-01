@@ -1,11 +1,10 @@
 import { Knex } from 'knex';
 
 import { CreateMonumentPayload } from '../dto/monuments';
-import { InjectService } from '../utils/di';
 import { getOne } from '../utils/knex';
 
 export default class MonumentsService {
-  @InjectService('knex') private readonly knex: Knex;
+  public constructor(private readonly knex: Knex) {}
 
   public async createMonument(payload: CreateMonumentPayload) {
     const trx = await this.knex.transaction();

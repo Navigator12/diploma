@@ -1,11 +1,10 @@
 import { Knex } from 'knex';
 
 import { CreatePersonPayload } from '../dto/people';
-import { InjectService } from '../utils/di';
 import { getOne } from '../utils/knex';
 
 export default class PersonService {
-  @InjectService('knex') private readonly knex: Knex;
+  public constructor(private readonly knex: Knex) {}
 
   public async createPerson(payload: CreatePersonPayload) {
     const trx = await this.knex.transaction();
