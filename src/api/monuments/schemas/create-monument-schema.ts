@@ -27,6 +27,13 @@ const request = {
         type: 'string',
         format: 'uuid',
       },
+      person_ids: {
+        type: 'array',
+        items: {
+          type: 'string',
+          format: 'uuid',
+        },
+      },
     },
   },
 };

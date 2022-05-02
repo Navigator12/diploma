@@ -27,6 +27,14 @@ export const init = async ({ environment }: InitOptions) => {
     knex: asFunction(connectDatabase).singleton(),
   });
 
+  diContainer.loadModules(['src/repositories/*.repository.ts'], {
+    resolverOptions: {
+      lifetime: Lifetime.SINGLETON,
+      injectionMode: InjectionMode.CLASSIC,
+    },
+    formatName: 'camelCase',
+  });
+
   diContainer.loadModules(['src/services/*.service.ts'], {
     resolverOptions: {
       lifetime: Lifetime.SINGLETON,

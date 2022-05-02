@@ -1,9 +1,19 @@
-export type CreateMonumentPayload = {
+export type CreateMonumentData = {
   name: string;
   latitude: number;
   longitude: number;
   description?: string;
   photo_id?: string;
+};
+
+export type AttachPeopleToMonumentData = {
+  monument_id: string;
+  person_ids: string[];
+};
+
+export type CreateMonumentPayload = {
+  monumentPayload: CreateMonumentData;
+  person_ids?: string[];
 };
 
 export type CreateMonumentBody = {
@@ -12,6 +22,7 @@ export type CreateMonumentBody = {
   longitude: number;
   description?: string;
   photo_id?: string;
+  person_ids?: string[];
 };
 
 export type CreateMonument = {

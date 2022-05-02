@@ -9,15 +9,15 @@ const uploadPhotoHandler = async (request: FastifyRequest<UploadPhoto>, reply: F
     throw new createHttpError.BadRequest('Need to provide file');
   }
 
-  if (!request.body.type) {
-    throw new createHttpError.BadRequest('Need to provide type');
+  if (!DirectoryEnum[request.body.type]) {
+    throw new createHttpError.UnprocessableEntity('Need to provide valid type');
   }
 
   const { bucketService, photosService } = request.diScope.cradle;
 
   const bucketData = await bucketService.uploadFile(request.file, DirectoryEnum[request.body.type]);
 
-  const photo = await photosService.createPhoto(bucketData);
+  const photo = await photosService.createPhoto({ file_name: bucketData.fileName, original_name: bucketData.originalName });
 
   reply.status(201).send(photo);
 };

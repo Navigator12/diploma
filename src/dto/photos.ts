@@ -1,8 +1,13 @@
 import { DirectoryEnum } from '../services/types';
 
+export type CreatePhotoData = {
+  file_name: string;
+  original_name: string;
+};
+
 export type CreatePhotoPayload = {
-  fileName: string;
-  originalName: string;
+  file_name: string;
+  original_name: string;
 };
 
 export type UploadPhotoBody = {
