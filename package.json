@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Navigator12/diploma#readme",
   "dependencies": {
+    "@fastify/cors": "^7.0.0",
     "@google-cloud/storage": "^5.19.4",
     "awilix": "^7.0.1",
     "dotenv": "^16.0.0",
