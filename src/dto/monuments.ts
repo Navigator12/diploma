@@ -1,3 +1,11 @@
+export type GetMonumentByIdParams = {
+  id: string;
+};
+
+export type GetMonumentById = {
+  Params: GetMonumentByIdParams;
+};
+
 export type CreateMonumentData = {
   name: string;
   latitude: number;

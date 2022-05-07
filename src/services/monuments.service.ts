@@ -35,4 +35,8 @@ export default class MonumentsService {
   public async getMonuments() {
     return this.monumentsRepository.aggregateMonuments().orderBy('monuments.created_at', 'asc');
   }
+
+  public async getMonumentById(id: string) {
+    return this.monumentsRepository.aggregateMonuments().where({ 'monuments.monument_id': id }).then(getOne);
+  }
 }

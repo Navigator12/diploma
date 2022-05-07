@@ -1,16 +1,16 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import createHttpError from 'http-errors';
+import { BadRequest, UnprocessableEntity } from 'http-errors';
 
 import { UploadPhoto } from '../../../dto/photos';
 import { DirectoryEnum } from '../../../services/types';
 
 const uploadPhotoHandler = async (request: FastifyRequest<UploadPhoto>, reply: FastifyReply) => {
   if (!request.file) {
-    throw new createHttpError.BadRequest('Need to provide file');
+    throw new BadRequest('Need to provide file');
   }
 
   if (!DirectoryEnum[request.body.type]) {
-    throw new createHttpError.UnprocessableEntity('Need to provide valid type');
+    throw new UnprocessableEntity('Need to provide valid type');
   }
 
   const { bucketService, photosService } = request.diScope.cradle;

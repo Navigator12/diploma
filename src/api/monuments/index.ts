@@ -1,13 +1,20 @@
 import { FastifyInstance } from 'fastify';
 
-import { getMonumentsHandler, createMonumentHandler } from './handlers';
-import { createMonumentSchema } from './schemas';
+import { getMonumentsHandler, getMonumentByIdHandler, createMonumentHandler } from './handlers';
+import { getMonumentByIdSchema, createMonumentSchema } from './schemas';
 
 const monuments = async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',
     url: '/',
     handler: getMonumentsHandler,
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/:id',
+    schema: getMonumentByIdSchema,
+    handler: getMonumentByIdHandler,
   });
 
   fastify.route({
