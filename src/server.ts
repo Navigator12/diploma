@@ -23,7 +23,7 @@ export const init = async ({ environment }: InitOptions) => {
 
   app.register(fastifyAwilixPlugin, {
     disposeOnClose: true,
-    disposeOnResponse: true,
+    disposeOnResponse: false,
   });
 
   diContainer.register({
