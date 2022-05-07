@@ -4,7 +4,7 @@ const request = {
   body: {
     type: 'object',
     additionalProperties: false,
-    required: ['name', 'latitude', 'longitude'],
+    required: ['name', 'latitude', 'longitude', 'type'],
     properties: {
       name: {
         type: 'string',
@@ -26,6 +26,10 @@ const request = {
       photo_id: {
         type: 'string',
         format: 'uuid',
+      },
+      type: {
+        type: 'string',
+        enum: ['museum', 'church', 'house'],
       },
       person_ids: {
         type: 'array',

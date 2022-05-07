@@ -4,6 +4,7 @@ export type CreateMonumentData = {
   longitude: number;
   description?: string;
   photo_id?: string;
+  type: string;
 };
 
 export type AttachPeopleToMonumentData = {
@@ -22,6 +23,7 @@ export type CreateMonumentBody = {
   longitude: number;
   description?: string;
   photo_id?: string;
+  type: string;
   person_ids?: string[];
 };
 

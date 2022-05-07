@@ -26,6 +26,7 @@ export default class MonumentsRepository {
         'latitude',
         'longitude',
         'monuments.description',
+        'type',
         'monuments.created_at',
         'monument_photos.file_name',
         this.knex.raw(
@@ -51,6 +52,7 @@ export default class MonumentsRepository {
         'longitude',
         'monuments.description',
         'monuments.created_at',
+        'type',
         'monument_photos.file_name'
       );
   }

@@ -24,6 +24,6 @@ export default class PersonService {
   }
 
   public async getPeople() {
-    return this.peopleRepository.aggregatePerson();
+    return this.peopleRepository.aggregatePerson().orderBy('people.created_at', 'asc');
   }
 }
