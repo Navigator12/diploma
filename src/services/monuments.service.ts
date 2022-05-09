@@ -1,11 +1,15 @@
 import { Knex } from 'knex';
 
-import { MonumentsRepository } from '../repositories';
+import { MonumentsRepository, PeopleRepository } from '../repositories';
 import { CreateMonumentPayload } from '../dto/monuments';
 import { getOne } from '../utils/knex';
 
 export default class MonumentsService {
-  public constructor(private readonly knex: Knex, private readonly monumentsRepository: MonumentsRepository) {}
+  public constructor(
+    private readonly knex: Knex,
+    private readonly monumentsRepository: MonumentsRepository,
+    private readonly peopleRepository: PeopleRepository
+  ) {}
 
   public async createMonument({ monumentPayload, person_ids }: CreateMonumentPayload) {
     const trx = await this.knex.transaction();
@@ -21,22 +25,32 @@ export default class MonumentsService {
         .transacting(trx);
     }
 
-    const monument = await this.monumentsRepository
-      .aggregateMonuments()
-      .where({ 'monuments.monument_id': monument_id })
-      .transacting(trx)
-      .then(getOne);
+    const [monument, people] = await Promise.all([
+      this.monumentsRepository.getMonumentsWithPhoto().where({ monument_id }).transacting(trx).then(getOne),
+      this.peopleRepository.getPeopleWithPhotoByMonumentId(monument_id).transacting(trx),
+    ]);
 
     await trx.commit();
 
-    return monument;
+    return {
+      ...monument,
+      people,
+    };
   }
 
   public async getMonuments() {
-    return this.monumentsRepository.aggregateMonuments().orderBy('monuments.created_at', 'asc');
+    return this.monumentsRepository.getMonumentsWithPhoto().orderBy('monuments.created_at', 'asc');
   }
 
   public async getMonumentById(id: string) {
-    return this.monumentsRepository.aggregateMonuments().where({ 'monuments.monument_id': id }).then(getOne);
+    const [monument, people] = await Promise.all([
+      this.monumentsRepository.getMonumentsWithPhoto().where({ monument_id: id }).then(getOne),
+      this.peopleRepository.getPeopleWithPhotoByMonumentId(id),
+    ]);
+
+    return {
+      ...monument,
+      people,
+    };
   }
 }

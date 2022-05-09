@@ -13,7 +13,7 @@ export default class PersonService {
     const { person_id } = await this.peopleRepository.createPerson(payload).transacting(trx).then(getOne);
 
     const person = await this.peopleRepository
-      .aggregatePerson()
+      .getPeopleWithPhoto()
       .where({ 'people.person_id': person_id })
       .transacting(trx)
       .then(getOne);
@@ -24,6 +24,6 @@ export default class PersonService {
   }
 
   public async getPeople() {
-    return this.peopleRepository.aggregatePerson().orderBy('people.created_at', 'asc');
+    return this.peopleRepository.getPeopleWithPhoto().orderBy('people.created_at', 'asc');
   }
 }
