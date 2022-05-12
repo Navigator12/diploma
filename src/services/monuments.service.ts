@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 
 import { MonumentsRepository, PeopleRepository } from '../repositories';
-import { CreateMonumentPayload } from '../dto/monuments';
+import { CreateMonumentPayload, GetMonumentsPayload } from '../dto/monuments';
 import { getOne } from '../utils/knex';
 
 export default class MonumentsService {
@@ -38,8 +38,14 @@ export default class MonumentsService {
     };
   }
 
-  public async getMonuments() {
-    return this.monumentsRepository.getMonumentsWithPhoto().orderBy('monuments.created_at', 'asc');
+  public async getMonuments(payload: GetMonumentsPayload) {
+    const filter: GetMonumentsPayload = {};
+
+    if (payload.type) {
+      filter.type = payload.type;
+    }
+
+    return this.monumentsRepository.getMonumentsWithPhoto().where(filter).orderBy('monuments.created_at', 'asc');
   }
 
   public async getMonumentById(id: string) {

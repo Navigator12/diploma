@@ -1,3 +1,13 @@
+export type GetMonumentsQuery = {
+  type?: string;
+};
+
+export type GetMonumentsPayload = GetMonumentsQuery;
+
+export type GetMonuments = {
+  Querystring: GetMonumentsQuery;
+};
+
 export type GetMonumentByIdParams = {
   id: string;
 };
