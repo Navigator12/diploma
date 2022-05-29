@@ -1,5 +1,5 @@
 import fastify, { FastifyInstance } from 'fastify';
-import { fastifyAwilixPlugin, diContainer } from 'fastify-awilix';
+import { fastifyAwilixPlugin, diContainer } from '@fastify/awilix';
 import { asFunction, InjectionMode, Lifetime } from 'awilix';
 import cors from '@fastify/cors';
 import multer from 'fastify-multer';
